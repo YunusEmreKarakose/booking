@@ -4,7 +4,14 @@ const jwt = require('jsonwebtoken');
 const authVerify=require('../db/authVerify');
 const mysqlDb = require('../db/mysqlDb');
 
-/* USER REGISTER */
+/* 
+  USER REGISTER 
+  @param name String(35)
+  @param surname String(35)
+  @param email String(320)
+  @param phoneNum String(15)
+  @param password String(35)  
+*/
 router.post('/register', (req, res, next)=>{
   let userData={
     name:req.body.name,
@@ -18,7 +25,7 @@ router.post('/register', (req, res, next)=>{
   mysqlDb.query(postQuery,userData,(err,results,fields)=>{
     if(err){  res.json({"mysql":err})}
     else{
-    res.json({"mysql":"user registration done"});
+      res.json({"mysql":"user registration done"});
     }
   })
 });
@@ -32,21 +39,52 @@ router.post('/login', (req, res, next)=>{
   let postQuery="SELECT * FROM users WHERE email=? AND password =? "
   mysqlDb.query(postQuery,[userData.email,userData.password],(err,results,fields)=>{
     if(err){  res.json({"mysql":err})}
-    //jwt token    
-    const token=jwt.sign({_userId:results[0].userId},process.env.JWT_SECRET);
-    res.header("auth-token",token).send({"message":"User Logged In","token":token});
+    else{
+      //jwt token    
+      const token=jwt.sign({_userId:results[0].userId},process.env.JWT_SECRET);
+      res.header("auth-token",token).send({"message":"User Logged In","token":token});
+    }
   })
 });
-
-/* AUTH REQUIRED */
+/* GET ALL HOTELS */
+router.get('/getHotels',(req,res,next)=>{
+  let getQuery="SELECT name,location FROM hotels";
+  mysqlDb.query(getQuery,(err,results,fields)=>{
+    if(err){  res.json({"mysql":err})}
+    else{
+      res.json({"hotels":results});
+    }
+  })
+});
+/* SEARCH HOTEL BY NAME */
+router.get('getHotelByName',(req,res,next)=>{  
+  let name=req.body.hotelName;
+  let getQuery="SELECT name,location FROM hotels WHERE name = ?";
+  mysqlDb.query(getQuery,name,(err,results,fields)=>{
+    if(err){  res.json({"mysql":err})}
+    else{
+      res.json({"hotels":results});
+    }
+  })
+});
+/* AUTH REQUIRED TRANSACTIONS*/
+/* GET USER DATA */
 router.get('/getdata',authVerify,(req,res,next)=>{ 
   let getQuery="SELECT * FROM users WHERE userId = ?"
   mysqlDb.query(getQuery,req.user._userId,(err,results,fields)=>{
     if(err){  res.json({"mysql":err})}
-    res.json({"mysql":results});
+    else{      
+      res.json({"mysql":results});
+    }
   })
 })
-/* MAKE RESERVATION */
+/* 
+  MAKE RESERVATION
+  @param hotelId Number
+  @param userId Number (from jwt)
+  @param guestCount Number
+  @checkIn/Out Date(yyyy-mm-dd)
+*/
 router.post('/makeRes', authVerify,(req, res, next)=>{
   let reservationData={
     hotelId:req.body.hotelId,
@@ -59,7 +97,9 @@ router.post('/makeRes', authVerify,(req, res, next)=>{
   let postQuery="INSERT INTO reservations SET ?"
   mysqlDb.query(postQuery,reservationData,(err,results,fields)=>{
     if(err){  res.json({"mysql":err})}
-    res.json({"mysql":"reservation done"});
+    else{      
+      res.json({"mysql":"reservation done"});
+    }
   })
 });
 module.exports = router;
