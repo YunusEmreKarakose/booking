@@ -15,7 +15,7 @@ npm start
 
 ## Usage
 ### USERS
-#### User Registiration
+#### User Registration
 ```http
 POST /users/register/
 ```
@@ -31,7 +31,7 @@ POST /users/register/
 ```javascript
 {
   "message" : string,
-  "mysql" : bool
+  "mysql" : object
 }
 ```
 The `message` attribute contains a message used to indicate  success .
@@ -66,7 +66,7 @@ GET /users/getHotels/
 ```javascript
 {
   "mysql" : string,
-  "hotels" : auth-token
+  "hotels" : array of objects
 }
 ```
 The `mysql` attribute contains a message used to indicate  database error .
@@ -85,7 +85,7 @@ GET /users/getHotelByName/
 ```javascript
 {
   "mysql" : string,
-  "hotels" : auth-token
+  "hotels" : array of objects
 }
 ```
 The `mysql` attribute contains a message used to indicate  database error .
