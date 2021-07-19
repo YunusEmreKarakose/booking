@@ -93,3 +93,38 @@ The `mysql` attribute contains a message used to indicate  database error .
 The `hotels` attribute returns hotels list
 
 ### Authorization Required Routes
+
+#### Get User Data
+```http
+GET /users/getData/
+```
+##### Response 
+```javascript
+{
+  "mysql" : string
+}
+```
+The `mysql` attribute contains a message used to indicate  database error or query result.
+
+#### Make Hotel Reservation
+```http
+POST /users/makeRes/
+```
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `hotelId` | `number` | **Required**|
+| `userId` | `number` | **Required**|
+| `guestCount` | `number` | **Required**|
+| `checkIn` | `Date `| **Required** (yyyy-mm-dd)|
+| `checkOut` | `Date `| **Required** (yyyy-mm-dd)|
+
+##### Response 
+```javascript
+{
+  "mysql" : string
+}
+```
+The `mysql` attribute contains a message used to indicate  database error or success
+
+
