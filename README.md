@@ -114,7 +114,7 @@ GET /users/getData/
 ##### Response 
 ```javascript
 {
-  "mysql" : string
+  "mysql" : string/object
 }
 ```
 The `mysql` attribute contains a message used to indicate  database error or query result.
@@ -135,7 +135,7 @@ POST /users/makeRes/
 ##### Response 
 ```javascript
 {
-  "mysql" : string
+  "mysql" : string/object
 }
 ```
 The `mysql` attribute contains a message used to indicate  database error or success
@@ -214,10 +214,11 @@ The `mysql` attribute contains a message used to indicate mysql  fail or results
 #### Confirm Hotel Reservation
 ```http
 POST /admins/confirm/
+```
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
 | `resId` | `number` | **Required** (Reservation Id)|
-```
+
 ##### Response 
 ```javascript
 {
