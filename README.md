@@ -128,3 +128,87 @@ POST /users/makeRes/
 The `mysql` attribute contains a message used to indicate  database error or success
 
 
+### ADMINS
+#### Admin Registration
+```http
+POST /admins/register/
+```
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `email` | `string` | **Required**|
+| `phoneNum` | `string` | **Required**|
+
+##### Response 
+```javascript
+{
+  "mysql" : string/object
+}
+```
+The `mysql` attribute contains a message used to indicate  success or fail.
+
+
+#### Admin Login
+```http
+POST /admins/login/
+```
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `email` | `string` | **Required**|
+| `phoneNum` | `string` | **Required**|
+
+##### Response 
+```javascript
+{
+  "mysql" : object,
+  "token" : auth-token
+}
+```
+The `mysql` attribute contains a message used to indicate mysql error.
+
+The `token` attribute returns JWT token for authorization
+
+
+### Authorization Required Routes
+#### Hotel Registration
+```http
+POST /admins/registerHotel/
+```
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `name` | `string` | **Required**|
+| `location` | `string` | **Required**|
+
+##### Response 
+```javascript
+{
+  "mysql" : object
+}
+```
+The `mysql` attribute contains a message used to indicate mysql success or fail.
+
+#### Get Hotel Reservations
+```http
+GET /admins/getReservations/
+```
+##### Response 
+```javascript
+{
+  "mysql" : object
+}
+```
+The `mysql` attribute contains a message used to indicate mysql  fail or results.
+
+#### Confirm Hotel Reservation
+```http
+POST /admins/confirm/
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `resId` | `number` | **Required** (Reservation Id)|
+```
+##### Response 
+```javascript
+{
+  "mysql" : object
+}
+```
+The `mysql` attribute contains a message used to indicate mysql  fail or results.
