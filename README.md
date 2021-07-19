@@ -1,6 +1,6 @@
 # Booking
 
-Foobar is a Python library for dealing with word pluralization.
+Basic API
 
 ## Installation
 Database connection object and tables
