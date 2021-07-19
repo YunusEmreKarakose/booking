@@ -3,6 +3,19 @@
 Foobar is a Python library for dealing with word pluralization.
 
 ## Installation
+Database connection object and tables
+[mysqlDb.js](https://github.com/YunusEmreKarakose/booking/blob/main/db/mysqlDb.js)
+
+```javascript
+{
+    host:'localhost',
+    user:'root',
+    password:'root',
+    database:'booking'
+  }
+```
+MySQL legacy authorization is used. API needs a database scheme that is named "booking". 
+All tables created automatically(if not exist) when API started.
 
 ```bash
 npm install
