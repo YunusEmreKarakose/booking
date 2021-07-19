@@ -1,0 +1,1 @@
+![db erd](https://github.com/YunusEmreKarakose/booking/blob/main/db/db.png)
