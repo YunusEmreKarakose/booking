@@ -14,7 +14,7 @@ npm start
 ```
 
 ## Usage
-#### User Registiration
+#### User Registration
 ```http
 POST /users/register/
 ```
